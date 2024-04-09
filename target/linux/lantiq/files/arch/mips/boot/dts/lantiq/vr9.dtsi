@@ -447,8 +447,13 @@
 
 				port@6 {
 					reg = <0x6>;
-					label = "cpu";
+					phy-mode = "internal";
 					ethernet = <&eth0>;
+
+					fixed-link {
+						speed = <1000>;
+						full-duplex;
+					};
 				};
 			};
 
@@ -488,8 +493,6 @@
 			interrupt-names = "tx", "rx";
 			resets = <&reset0 21 16>, <&reset0 8 8>, <&reset0 3 3>;
 			reset-names = "switch", "ppe", "ppe_dsp";
-			lantiq,tx-burst-length = <8>;
-			lantiq,rx-burst-length = <8>;
 			#address-cells = <1>;
 			#size-cells = <0>;
 
@@ -557,6 +560,8 @@
 			req-mask = <0x1>; /* GNT1 */
 
 			device_type = "pci";
+
+			resets = <&reset0 13 13>;
 		};
 	};
 

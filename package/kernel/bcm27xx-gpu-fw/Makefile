@@ -2,8 +2,8 @@ include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=bcm27xx-gpu-fw
-PKG_VERSION:=2021-08-19
-PKG_RELEASE:=25e2b597ebfb2495eab4816a276758dcc6ea21f1
+PKG_VERSION:=2024-01-11
+PKG_RELEASE:=0968de28716a9b1f106b8492646d0ed0a2800152
 
 PKG_BUILD_DIR:=$(KERNEL_BUILD_DIR)/$(PKG_NAME)/rpi-firmware-$(PKG_RELEASE)
 
@@ -26,7 +26,7 @@ define Download/bootcode_bin
   FILE:=$(RPI_FIRMWARE_FILE)-bootcode.bin
   URL:=$(RPI_FIRMWARE_URL)
   URL_FILE:=bootcode.bin
-  HASH:=36fba28838867f26670a0cd1de340da62e13171cfdec0e7822737e849b3c0681
+  HASH:=af603ebd97e7b692c30195563f7b25656eb05d57838cf1a715ebb470d1614ce4
 endef
 $(eval $(call Download,bootcode_bin))
 
@@ -34,7 +34,7 @@ define Download/fixup_dat
   FILE:=$(RPI_FIRMWARE_FILE)-fixup.dat
   URL:=$(RPI_FIRMWARE_URL)
   URL_FILE:=fixup.dat
-  HASH:=b06aa43aa668d6982de66044299d1b0dd6b449ec321dd83742aa1eb68774e15b
+  HASH:=c28ea955e672e374016dca61d63afa026490f0473a98115908586ab48e324aeb
 endef
 $(eval $(call Download,fixup_dat))
 
@@ -42,7 +42,7 @@ define Download/fixup_cd_dat
   FILE:=$(RPI_FIRMWARE_FILE)-fixup_cd.dat
   URL:=$(RPI_FIRMWARE_URL)
   URL_FILE:=fixup_cd.dat
-  HASH:=fff4fd9fbb691100be46269f554acd866eac8cfef39082e03ac12f70fbfe9d95
+  HASH:=3cf1aef5f596ca106203ed5dac9ad45e85929ec55ce44c813588645e174442ec
 endef
 $(eval $(call Download,fixup_cd_dat))
 
@@ -50,7 +50,7 @@ define Download/fixup_x_dat
   FILE:=$(RPI_FIRMWARE_FILE)-fixup_x.dat
   URL:=$(RPI_FIRMWARE_URL)
   URL_FILE:=fixup_x.dat
-  HASH:=d74f97ae37cd476e6d4c8e466c3013be49e891e63b9aabc0c9b7637d85068cd0
+  HASH:=56525c8feabde1ab86f36bb09bc55171659b2993f94132cf81ffc4293d62269d
 endef
 $(eval $(call Download,fixup_x_dat))
 
@@ -58,7 +58,7 @@ define Download/fixup4_dat
   FILE:=$(RPI_FIRMWARE_FILE)-fixup4.dat
   URL:=$(RPI_FIRMWARE_URL)
   URL_FILE:=fixup4.dat
-  HASH:=a607f4dc3000c188f8daaa3417c70a9e5ecc039fae36ba46807c00294f89cd24
+  HASH:=615f8595801bf52373039f73ad5ad9513f83400d355eb1b2c075c7ae907e927c
 endef
 $(eval $(call Download,fixup4_dat))
 
@@ -66,7 +66,7 @@ define Download/fixup4cd_dat
   FILE:=$(RPI_FIRMWARE_FILE)-fixup4cd.dat
   URL:=$(RPI_FIRMWARE_URL)
   URL_FILE:=fixup4cd.dat
-  HASH:=fff4fd9fbb691100be46269f554acd866eac8cfef39082e03ac12f70fbfe9d95
+  HASH:=3cf1aef5f596ca106203ed5dac9ad45e85929ec55ce44c813588645e174442ec
 endef
 $(eval $(call Download,fixup4cd_dat))
 
@@ -74,7 +74,7 @@ define Download/fixup4x_dat
   FILE:=$(RPI_FIRMWARE_FILE)-fixup4x.dat
   URL:=$(RPI_FIRMWARE_URL)
   URL_FILE:=fixup4x.dat
-  HASH:=14ba09cba83d82a158481a7267fad06ada73c26c3a27dfd34694955f11ba6e27
+  HASH:=6d27a4b8ecb78cef9e1f03751b4aaec5ce8749d36988f381145a8a41dbf164ae
 endef
 $(eval $(call Download,fixup4x_dat))
 
@@ -82,7 +82,7 @@ define Download/start_elf
   FILE:=$(RPI_FIRMWARE_FILE)-start.elf
   URL:=$(RPI_FIRMWARE_URL)
   URL_FILE:=start.elf
-  HASH:=8bee170c56529bf1666ad4afdd18ae18c7123e7a2fd30e2992cd0d9a01fa63ee
+  HASH:=e8348e88522e7a1d0e2b0944ab66d7d8f4f30da98f326e2b3c123522e45f71b2
 endef
 $(eval $(call Download,start_elf))
 
@@ -90,7 +90,7 @@ define Download/start_cd_elf
   FILE:=$(RPI_FIRMWARE_FILE)-start_cd.elf
   URL:=$(RPI_FIRMWARE_URL)
   URL_FILE:=start_cd.elf
-  HASH:=27d9354ff1af79a521527a288fe736f7337f91bca12bbc177c80e29dbbef0ffd
+  HASH:=c9b4de3f12bec7808868b898c49f656b5378ddc315f12ccab83d6519bad51680
 endef
 $(eval $(call Download,start_cd_elf))
 
@@ -98,7 +98,7 @@ define Download/start_x_elf
   FILE:=$(RPI_FIRMWARE_FILE)-start_x.elf
   URL:=$(RPI_FIRMWARE_URL)
   URL_FILE:=start_x.elf
-  HASH:=499bfdf3deba7bb0a033d2a4487b7f05bce45de2692c7c6dabc4a456237fd438
+  HASH:=0b5c06c109984361eeed0ab14d146f686d8aa8da2025689b887e9cb098636db9
 endef
 $(eval $(call Download,start_x_elf))
 
@@ -106,7 +106,7 @@ define Download/start4_elf
   FILE:=$(RPI_FIRMWARE_FILE)-start4.elf
   URL:=$(RPI_FIRMWARE_URL)
   URL_FILE:=start4.elf
-  HASH:=158bf783090223626cf45794bf679a3fadbf64bba55b76e3349b94e01be34202
+  HASH:=fedc4ecd72c9d21018e210240dcd2e41a8bb5f936fb5674c3351f2a447a22203
 endef
 $(eval $(call Download,start4_elf))
 
@@ -114,7 +114,7 @@ define Download/start4cd_elf
   FILE:=$(RPI_FIRMWARE_FILE)-start4cd.elf
   URL:=$(RPI_FIRMWARE_URL)
   URL_FILE:=start4cd.elf
-  HASH:=c4912701f620cdd9e44bbacbfc4adb4be1b6fb7ccf81f6029ce2115511970cc0
+  HASH:=ea22282a77666801378137a651e7e0b17cc186f63cdbdc8b9bb98749cd12b256
 endef
 $(eval $(call Download,start4cd_elf))
 
@@ -122,7 +122,7 @@ define Download/start4x_elf
   FILE:=$(RPI_FIRMWARE_FILE)-start4x.elf
   URL:=$(RPI_FIRMWARE_URL)
   URL_FILE:=start4x.elf
-  HASH:=3eb1adb5dfef21da0a16679ef65314a64196a67c6fca3422df8bc721d6b6fa94
+  HASH:=c509e73a9cba7af3223dea885f58294bd04845e822aa3d6278500fa4dcdb112f
 endef
 $(eval $(call Download,start4x_elf))
 

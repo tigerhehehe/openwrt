@@ -363,14 +363,15 @@ _procd_add_mount_trigger() {
 }
 
 _procd_add_action_mount_trigger() {
+	local action="$1"
+	shift
+	local mountpoints="$(procd_get_mountpoints "$@")"
+	[ "${mountpoints//[[:space:]]}" ] || return 0
 	local script=$(readlink "$initscript")
 	local name=$(basename ${script:-$initscript})
-	local action="$1"
-	local mpath
-	shift
 
 	_procd_open_trigger
-	_procd_add_mount_trigger mount.add $action "$@"
+	_procd_add_mount_trigger mount.add $action "$mountpoints"
 	_procd_close_trigger
 }
 
@@ -384,7 +385,7 @@ procd_get_mountpoints() {
 			target="${target%%/}/"
 			[ "$path" != "${path##$target}" ] && echo "${target%%/}"
 		}
-
+		local mpath
 		config_load fstab
 		for mpath in "$@"; do
 			config_foreach __procd_check_mount mount "$mpath"
@@ -393,15 +394,11 @@ procd_get_mountpoints() {
 }
 
 _procd_add_restart_mount_trigger() {
-	local mountpoints="$(procd_get_mountpoints "$@")"
-	[ "${mountpoints//[[:space:]]}" ] &&
-		_procd_add_action_mount_trigger restart $mountpoints
+	_procd_add_action_mount_trigger restart "$@"
 }
 
 _procd_add_reload_mount_trigger() {
-	local mountpoints="$(procd_get_mountpoints "$@")"
-	[ "${mountpoints//[[:space:]]}" ] &&
-		_procd_add_action_mount_trigger reload $mountpoints
+	_procd_add_action_mount_trigger reload "$@"
 }
 
 _procd_add_raw_trigger() {
@@ -527,7 +524,10 @@ _procd_send_signal() {
 _procd_status() {
 	local service="$1"
 	local instance="$2"
-	local data
+	local data state
+	local n_running=0
+	local n_stopped=0
+	local n_total=0
 
 	json_init
 	[ -n "$service" ] && json_add_string name "$service"
@@ -542,10 +542,29 @@ _procd_status() {
 	fi
 
 	[ -n "$instance" ] && instance="\"$instance\"" || instance='*'
-	if [ -z "$(echo "$data" | jsonfilter -e '$['"$instance"']')" ]; then
-		echo "unknown instance $instance"; return 4
+
+	for state in $(jsonfilter -s "$data" -e '$['"$instance"'].running'); do
+		n_total=$((n_total + 1))
+		case "$state" in
+		false) n_stopped=$((n_stopped + 1)) ;;
+		true)  n_running=$((n_running + 1)) ;;
+		esac
+	done
+
+	if [ $n_total -gt 0 ]; then
+		if [ $n_running -gt 0 ] && [ $n_stopped -eq 0 ]; then
+			echo "running"
+			return 0
+		elif [ $n_running -gt 0 ]; then
+			echo "running ($n_running/$n_total)"
+			return 0
+		else
+			echo "not running"
+			return 5
+		fi
 	else
-		echo "running"; return 0
+		echo "unknown instance $instance"
+		return 4
 	fi
 }
 
@@ -638,6 +657,7 @@ _procd_wrapper \
 	procd_add_mount_trigger \
 	procd_add_reload_trigger \
 	procd_add_reload_interface_trigger \
+	procd_add_action_mount_trigger \
 	procd_add_reload_mount_trigger \
 	procd_add_restart_mount_trigger \
 	procd_open_trigger \

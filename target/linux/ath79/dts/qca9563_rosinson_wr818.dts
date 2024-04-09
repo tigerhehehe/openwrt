@@ -72,6 +72,16 @@
 				label = "factory";
 				reg = <0x050000 0x010000>;
 				read-only;
+
+				nvmem-layout {
+					compatible = "fixed-layout";
+					#address-cells = <1>;
+					#size-cells = <1>;
+
+					macaddr_info_0: macaddr@0 {
+						reg = <0x0 0x6>;
+					};
+				};
 			};
 
 			partition@60000 {
@@ -92,7 +102,6 @@
 &mdio0 {
 	status = "okay";
 
-	phy-mask = <0>;
 	phy0: ethernet-phy@0 {
 		reg = <0>;
 		phy-mode = "sgmii";
@@ -124,14 +133,7 @@
 };
 
 &usb0 {
-	#address-cells = <1>;
-	#size-cells = <0>;
 	status = "okay";
-
-	port@1 {
-		reg = <1>;
-		#trigger-source-cells = <0>;
-	};
 };
 
 &usb_phy1 {
@@ -139,22 +141,5 @@
 };
 
 &usb1 {
-	#address-cells = <1>;
-	#size-cells = <0>;
 	status = "okay";
-
-	port@2 {
-		reg = <2>;
-		#trigger-source-cells = <0>;
-	};
-};
-
-&info {
-	compatible = "nvmem-cells";
-	#address-cells = <1>;
-	#size-cells = <1>;
-
-	macaddr_info_0: macaddr@0 {
-		reg = <0x0 0x6>;
-	};
 };
